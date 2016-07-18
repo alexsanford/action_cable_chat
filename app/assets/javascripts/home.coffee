@@ -28,7 +28,8 @@ angular.module('ActionCableChat').controller('ChatWindowCtrl', [
     # Listen for chat notifications
     $scope.$on 'chat_notifications', (event, data) ->
       if data.type == 'new_message'
-        $scope.refreshMessages()
+        $scope.messages.push(data.message)
+        $scope.scrollToBottom()
 
     # Scroll chat message window to the bottom
     # NOTE: bad practice to have this in a controller

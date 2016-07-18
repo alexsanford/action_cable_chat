@@ -7,4 +7,5 @@ App.chat = App.cable.subscriptions.create "ChatChannel",
 
   received: (data) ->
     # Called when there's incoming data on the websocket for this channel
-    App.$rootScope.$broadcast('chat_notifications', data)
+    App.$rootScope.$apply ->
+      App.$rootScope.$broadcast('chat_notifications', data)

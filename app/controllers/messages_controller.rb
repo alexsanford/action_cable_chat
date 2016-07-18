@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
   def notify_new_message
     # Send notification to WebSocket channel
     ActionCable.server.broadcast(
-      'chat_notifications', { type: 'new_message' }
+      'chat_notifications', { type: 'new_message', message: @message.as_json }
     )
   end
 end
