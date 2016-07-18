@@ -8,6 +8,7 @@
 window.App || (window.App = {})
 App.cable = ActionCable.createConsumer()
 
+# Give application cable access to $rootScope
 angular.module('ActionCableChat').run([
   '$rootScope'
   ($rootScope) ->
