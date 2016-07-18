@@ -1,9 +1,11 @@
 <h1>Welcome to Action Cable Chat!</h1>
 
-<div id="chat-window" ng-controller="ChatWindowCtrl">
-  <div ng-repeat="message in messages">
-    <hr ng-if="!$first">
-    <h3>{{ message.sender }}</h3>
-    <p>{{ message.message }}</p>
+<div ng-controller="ChatWindowCtrl">
+  <div id="chat-window">
+    <div ng-repeat="message in messages">
+      <hr ng-if="!$first">
+      <h3>{{ message.sender }}</h3>
+      <p>{{ message.message }}</p>
+    </div>
   </div>
 </div>
