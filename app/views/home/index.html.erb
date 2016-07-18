@@ -1,6 +1,7 @@
 <h1>Welcome to Action Cable Chat!</h1>
 
 <div ng-controller="ChatWindowCtrl">
+  <div class="hidden" ng-init="authToken = '<%= form_authenticity_token %>'"></div>
   <div id="chat-window">
     <div ng-repeat="message in messages">
       <hr ng-if="!$first">
@@ -8,4 +9,13 @@
       <p>{{ message.message }}</p>
     </div>
   </div>
+  <form ng-submit="sendMessage()">
+    <input class="form-control" type="text" ng-model="name" placeholder="Your name">
+    <div class="input-group">
+      <input class="form-control" type="text" ng-model="message" placeholder="Type your message">
+      <span class="input-group-btn">
+        <input type="submit" class="btn btn-primary" value="Send"></button>
+      </span>
+    </div>
+  </form>
 </div>
