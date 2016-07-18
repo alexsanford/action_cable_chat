@@ -12,6 +12,7 @@ class MessagesController < ApplicationController
     @message = Message.new(resource_params)
     respond_to do |format|
       if @message.save
+        notify_new_message
         format.json { render json: @message }
       else
         format.json { render json: { errors: @message.errors.messages }, status: 422 }
