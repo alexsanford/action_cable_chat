@@ -1,8 +1,12 @@
 angular.module('ActionCableChat').controller('ChatWindowCtrl', [
-  '$scope', '$http'
-  ($scope, $http) ->
-    $http.get('/messages.json').then (response) ->
-      $scope.messages = response.data
+  '$scope', '$http', '$timeout'
+  ($scope, $http, $timeout) ->
+    $scope.refreshMessages = ->
+      $http.get('/messages.json').then (response) ->
+        $scope.messages = response.data
+        $scope.scrollToBottom()
+
+    $scope.refreshMessages()
 
     $scope.clearMessage = ->
       $scope.message = ''
@@ -14,7 +18,17 @@ angular.module('ActionCableChat').controller('ChatWindowCtrl', [
           message: $scope.message
       )
       $scope.clearMessage()
+      App.chat.new_message()
 
     $scope.name = ''
     $scope.clearMessage()
+
+    $scope.$on 'chat_notifications', (event, data) ->
+      if data.type == 'new_message'
+        $scope.refreshMessages()
+
+    $scope.scrollToBottom = ->
+      $timeout ->
+        el = angular.element('#chat-window')[0]
+        el.scrollTop = el.scrollHeight
 ])

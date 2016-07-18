@@ -13,6 +13,11 @@ class MessagesController < ApplicationController
     respond_to do |format|
       if @message.save
         format.json { render json: @message }
+
+        # Send notification to WebSocket channel
+        ActionCable.server.broadcast(
+          'chat_notifications', { type: 'new_message' }
+        )
       else
         format.json { render json: { errors: @message.errors.messages }, status: 422 }
       end
