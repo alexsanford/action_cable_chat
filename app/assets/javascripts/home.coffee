@@ -5,16 +5,16 @@ angular.module('ActionCableChat').controller('ChatWindowCtrl', [
       $scope.messages = response.data
 
     $scope.clearMessage = ->
-      $scope.name = ''
       $scope.message = ''
 
     $scope.sendMessage = ->
       $http.post('/messages.json'
-        sender: $scope.name
-        message: $scope.message
-        authenticity_token: $scope.authToken
+        message:
+          sender: $scope.name
+          message: $scope.message
       )
       $scope.clearMessage()
 
+    $scope.name = ''
     $scope.clearMessage()
 ])
