@@ -16,4 +16,6 @@
 //= require angular
 //
 //= require turbolinks
+//
+//= require action_cable_chat
 //= require_tree .
