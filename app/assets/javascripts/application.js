@@ -14,6 +14,8 @@
 //= require jquery_ujs
 //
 //= require angular
+//= require angular-websocket/dist/angular-websocket
+//= require angular-actioncable/dist/angular-actioncable
 //
 //= require turbolinks
 //

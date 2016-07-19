@@ -1,2 +1,4 @@
 
-app = angular.module('ActionCableChat', [])
+app = angular.module('ActionCableChat', [
+  'ngActionCable'
+])

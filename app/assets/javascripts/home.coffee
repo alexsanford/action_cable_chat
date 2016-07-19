@@ -1,6 +1,6 @@
 angular.module('ActionCableChat').controller('ChatWindowCtrl', [
-  '$scope', '$http', '$timeout'
-  ($scope, $http, $timeout) ->
+  '$scope', '$http', '$timeout', 'ActionCableChannel'
+  ($scope, $http, $timeout, ActionCableChannel) ->
     # Get latest message list from server
     $scope.refreshMessages = ->
       $http.get('/messages.json').then (response) ->
@@ -25,11 +25,15 @@ angular.module('ActionCableChat').controller('ChatWindowCtrl', [
     $scope.clearMessage()
     $scope.refreshMessages()
 
-    # Listen for chat notifications
-    $scope.$on 'chat_notifications', (event, data) ->
-      if data.type == 'new_message'
-        $scope.messages.push(data.message)
-        $scope.scrollToBottom()
+    # Subscribe to chat notifications
+    channel = new ActionCableChannel('ChatChannel')
+    channel.subscribe(
+      (data) ->
+        if data.type == 'new_message'
+          $scope.messages.push(data.message)
+          $scope.scrollToBottom()
+    ).then ->
+      console.info('Successfully Subscribed!! :D')
 
     # Scroll chat message window to the bottom
     # NOTE: bad practice to have this in a controller
