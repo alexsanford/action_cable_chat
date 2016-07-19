@@ -50,3 +50,6 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # Bootstrap
 gem 'bootstrap-sass', '~> 3.3.6'
+
+# Bower
+gem 'bower-rails', '~> 0.10.0'
