@@ -28,10 +28,9 @@ angular.module('ActionCableChat').controller('ChatWindowCtrl', [
     # Subscribe to chat notifications
     channel = new ActionCableChannel('ChatChannel')
     channel.subscribe(
-      (data) ->
-        if data.type == 'new_message'
-          $scope.messages.push(data.message)
-          $scope.scrollToBottom()
+      (message) ->
+        $scope.messages.push(message)
+        $scope.scrollToBottom()
     ).then ->
       console.info('Successfully Subscribed!! :D')
 
