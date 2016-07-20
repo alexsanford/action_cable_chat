@@ -8,8 +8,8 @@ To run it yourself:
 - `cd action_cable_chat`
 - `bundle install`
 - `rails db:migrate`
-- rails server
-- Point browser to http://localhost:3000
+- `rails server`
+- Point browser to `http://localhost:3000`
 
 To look through the code, check out the following files:
 
