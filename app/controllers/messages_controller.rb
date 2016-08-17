@@ -4,7 +4,7 @@ class MessagesController < ApplicationController
   def index
     @messages = Message.all
     respond_to do |format|
-      format.html { render }
+      format.html {}
       format.json { render json: @messages }
     end
   end
@@ -16,9 +16,11 @@ class MessagesController < ApplicationController
         notify_new_message
         format.html { redirect_to messages_url }
         format.json { render json: @message }
+        format.js {}
       else
         format.html { redirect_to messages_url }
         format.json { render json: { errors: @message.errors.messages }, status: 422 }
+        format.js {}
       end
     end
   end
