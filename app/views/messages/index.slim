@@ -1,0 +1,15 @@
+h1 Welcome to Action Cable Chat!
+
+div
+  #chat-window
+    - @messages.each_with_index do |message, index|
+      - if index == 0
+        hr
+      = render message
+
+  = form_for Message.new do |f|
+    = f.text_field :sender, class: 'form-control', placeholder: 'Your name'
+    .input-group
+      = f.text_field :message, class: 'form-control', placeholder: 'Type your message'
+      span.input-group-btn
+        = f.submit class: 'btn btn-primary', value: 'Send'
