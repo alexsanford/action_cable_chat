@@ -54,4 +54,6 @@ Rails.application.configure do
 
   # Action Cable config
   config.action_cable.url = 'ws://localhost:3000/cable'
+
+  config.react.variant = :development
 end

@@ -3,7 +3,7 @@ h1 Welcome to Action Cable Chat!
 div
   #chat-window
     - @messages.each_with_index do |message, index|
-      - if index == 0
+      - unless index == 0
         hr
       = render message
 

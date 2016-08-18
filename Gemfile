@@ -55,3 +55,4 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'bower-rails', '~> 0.10.0'
 
 gem 'slim', '~> 3.0'
+gem 'react-rails', '~> 1.8'
