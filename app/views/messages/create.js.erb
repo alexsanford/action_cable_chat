@@ -1,3 +1,8 @@
 
-$('#chat-window').append("<%= render @message %>");
-$('#new_message #message_message').val('');
+<% if @message.valid? %>
+  $('#chat-window').append("<%= j render @message %>");
+  $('#new_message #message_message').val('');
+  $('#new_message').replaceWith("<%= j render partial: 'form', locals: { message: Message.new(sender: @message.sender) } %>");
+<% else %>
+  $('#new_message').replaceWith("<%= j render partial: 'form', locals: { message: @message } %>");
+<% end %>

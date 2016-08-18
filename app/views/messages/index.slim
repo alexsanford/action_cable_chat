@@ -7,9 +7,4 @@ div
         hr
       = render message
 
-  = form_for Message.new, remote: true do |f|
-    = f.text_field :sender, class: 'form-control', placeholder: 'Your name'
-    .input-group
-      = f.text_field :message, class: 'form-control', placeholder: 'Type your message'
-      span.input-group-btn
-        = f.submit class: 'btn btn-primary', value: 'Send'
+  = render partial: 'form', locals: { message: Message.new }
