@@ -9,11 +9,8 @@ var RailsForm = React.createClass({
   },
 
   csrfInput: function() {
-    param = this.props.csrfParam ||
-      $('meta[name=csrf-param]').attr('content') ||
-      'authenticity_token';
-    token = this.props.csrfToken ||
-      $('meta[name=csrf-token]').attr('content');
+    param = this.props.csrfParam || 'authenticity_token';
+    token = this.props.csrfToken;
 
     if (token) {
       return <input type="hidden" name={param} value={token} />;

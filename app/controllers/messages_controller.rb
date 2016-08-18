@@ -1,6 +1,14 @@
 class MessagesController < ApplicationController
   def index
     @messages = Message.all
+    @presenter = {
+      form: {
+        action: messages_path,
+        csrfToken: form_authenticity_token
+      },
+      messagesUrl: messages_path(format: :json),
+      messages: @messages.last(5)
+    }
     respond_to do |format|
       format.html {}
       format.json { render json: @messages }

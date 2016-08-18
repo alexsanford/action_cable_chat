@@ -1,6 +1,9 @@
 var ChatForm = React.createClass({
   propTypes: {
-    action: React.PropTypes.string.isRequired,
+    form: React.PropTypes.shape({
+      action: React.PropTypes.string.isRequired,
+      csrfToken: React.PropTypes.string
+    }).isRequired,
     onSubmit: React.PropTypes.func
   },
 
@@ -31,7 +34,8 @@ var ChatForm = React.createClass({
 
   render: function() {
     return (
-      <RailsForm formAction={this.props.action} formRef="form" formOnSubmit={this.handleSubmit}>
+      <RailsForm formAction={this.props.form.action} formRef="form"
+        formOnSubmit={this.handleSubmit} csrfToken={this.props.form.csrfToken}>
         <input type="text" className="form-control" placeholder="Your name"
           name="message[sender]" onChange={this.handleSenderChange}
           value={this.state.sender}/>
