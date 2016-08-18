@@ -1,6 +1,4 @@
 class MessagesController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def index
     @messages = Message.all
     respond_to do |format|

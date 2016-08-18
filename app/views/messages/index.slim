@@ -1,6 +1,6 @@
 h1 Welcome to Action Cable Chat!
 
-div
+/div
   #chat-window
     - @messages.each_with_index do |message, index|
       - unless index == 0
@@ -8,3 +8,5 @@ div
       = render message
 
   = render partial: 'form', locals: { message: Message.new }
+
+= react_component 'ChatWindow', { form: { action: messages_path }, messagesUrl: messages_path(format: :json) }
