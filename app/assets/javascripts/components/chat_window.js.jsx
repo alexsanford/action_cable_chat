@@ -13,7 +13,9 @@ var ChatWindow = React.createClass({
 
   componentDidMount: function() {
     console.info('Mounted!');
+
     if (!this.state.messages.length) {
+      console.info('Getting messages from server...');
       $.ajax({
         url: this.props.messagesUrl,
         dataType: 'json',
@@ -26,18 +28,46 @@ var ChatWindow = React.createClass({
         }.bind(this)
       });
     }
+
+    this.setupActionCable();
   },
 
-  handleSubmit: function(message) {
+  setupActionCable: function() {
+    console.info('Setting up ActionCable');
+    App.cable.subscriptions.create('ChatChannel', {
+      received: function(message) {
+        this.handleNewMessage(message);
+      }.bind(this)
+    });
+  },
+
+  handleNewMessage: function(message) {
     const NUM_MESSAGES = 5;
-    var messages = this.state.messages;
-    message.id = Date.now();
+    const TMP_ID = '__TMP__;'
+
+    var messages = this.state.messages.slice(0);
+
+    // Handle temporary messages
+    if (!message.id) {
+      message.id = TMP_ID;
+    } else {
+      if (messages[messages.length-1].id == TMP_ID)
+        messages.splice(-1);
+    }
+
+    // Add new message
     var newMessages = messages.concat([message]);
-    // Cut down to 5 messages (FIXME: this number should be configurable)
     if (newMessages.length > NUM_MESSAGES) {
       var newMessages = newMessages.slice(-NUM_MESSAGES);
     }
+
     this.setState({ messages: newMessages });
+  },
+
+  handleSubmit: function(message) {
+    var messages = this.state.messages;
+    this.handleNewMessage(message);
+
     $.ajax({
       url: this.props.messagesUrl,
       dataType: 'json',
