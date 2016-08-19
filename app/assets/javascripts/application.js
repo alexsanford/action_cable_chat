@@ -13,13 +13,14 @@
 //= require jquery
 //= require jquery_ujs
 //
-//= require angular
-//= require angular-websocket/dist/angular-websocket
-//= require angular-actioncable/dist/angular-actioncable
+//  #require angular
+//  #require angular-websocket/dist/angular-websocket
+//  #require angular-actioncable/dist/angular-actioncable
 //
 //= require turbolinks
 //
-//= require action_cable_chat
+//  #require action_cable_chat
+//
 //= require react
 //= require react_ujs
 //= require components
