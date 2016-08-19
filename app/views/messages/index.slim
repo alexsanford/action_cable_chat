@@ -1,4 +1,6 @@
 h1 Welcome to Action Cable Chat!
 
-= cache [ 'v2', @messages.order(updated_at: :desc).last ] do
+/= cache [ 'v2', @messages.order(updated_at: :desc).last ] do
   = react_component 'ChatWindow', @presenter, { prerender: true }
+
+= react_component 'ChatWindow', @presenter, { prerender: true }
