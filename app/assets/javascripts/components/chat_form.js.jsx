@@ -11,12 +11,12 @@ var ChatForm = React.createClass({
     return { sender: '', message: '' };
   },
 
-  handleSenderChange: function(e) {
-    this.setState({ sender: e.target.value });
-  },
-
-  handleMessageChange: function(e) {
-    this.setState({ message: e.target.value });
+  handleInputChange: function(key) {
+    return function(e) {
+      var stateChange = {};
+      stateChange[key] = e.target.value;
+      this.setState(stateChange);
+    }.bind(this);
   },
 
   handleSubmit: function(e) {
@@ -37,12 +37,12 @@ var ChatForm = React.createClass({
       <RailsForm action={this.props.form.action}
         onSubmit={this.handleSubmit} csrfToken={this.props.form.csrfToken}>
         <input type="text" className="form-control" placeholder="Your name"
-          name="message[sender]" onChange={this.handleSenderChange}
+          name="message[sender]" onChange={this.handleInputChange('sender')}
           value={this.state.sender}/>
         <div className="input-group">
           <input type="text" className="form-control"
             placeholder="Type your message" name="message[message]"
-            onChange={this.handleMessageChange} value={this.state.message} />
+            onChange={this.handleInputChange('message')} value={this.state.message} />
           <span className="input-group-btn">
             <input type="Submit" name="commit" value="Send"
               className="btn btn-primary" readOnly={true} />
