@@ -34,8 +34,8 @@ var ChatForm = React.createClass({
 
   render: function() {
     return (
-      <RailsForm formAction={this.props.form.action} formRef="form"
-        formOnSubmit={this.handleSubmit} csrfToken={this.props.form.csrfToken}>
+      <RailsForm action={this.props.form.action}
+        onSubmit={this.handleSubmit} csrfToken={this.props.form.csrfToken}>
         <input type="text" className="form-control" placeholder="Your name"
           name="message[sender]" onChange={this.handleSenderChange}
           value={this.state.sender}/>

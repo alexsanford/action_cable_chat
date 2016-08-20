@@ -1,36 +1,34 @@
-var RailsForm = React.createClass({
-  propTypes: {
-    csrfParam: React.PropTypes.string,
-    csrfToken: React.PropTypes.string,
-    formAction: React.PropTypes.string.isRequired,
-    formRef: React.PropTypes.string,
-    formOnSubmit: React.PropTypes.func,
-    formMethod: React.PropTypes.string
-  },
+var RailsForm = function(props) {
+  // Set up CSRF input if possible
+  var csrfInput = '';
+  if (props.csrfToken)
+    csrfInput = <input type="hidden" name={props.csrfParam} value={props.csrfToken} />;
 
-  csrfInput: function() {
-    param = this.props.csrfParam || 'authenticity_token';
-    token = this.props.csrfToken;
-
-    if (token) {
-      return <input type="hidden" name={param} value={token} />;
-    } else {
-      return '';
+  // Set up form props to pass through
+  var formProps = {};
+  for (var propName in props) {
+    if (['csrfParam', 'csrfToken'].indexOf(propName) < 0) {
+      formProps[propName] = props[propName];
     }
-  },
-
-  render: function() {
-    return (
-      <form
-        action={this.props.formAction}
-        ref={this.props.formRef}
-        onSubmit={this.props.formOnSubmit}
-        method={this.props.formMethod || "post"}
-        acceptCharset="UTF-8">
-        <input type="hidden" name="utf8" value="✓" />
-        {this.csrfInput()}
-        {this.props.children}
-      </form>
-    );
   }
-});
+
+  return (
+    <form {...formProps}>
+      <input type="hidden" name="utf8" value="✓" />
+      {csrfInput}
+      {props.children}
+    </form>
+  );
+};
+
+RailsForm.propTypes = {
+  csrfParam: React.PropTypes.string,
+  csrfToken: React.PropTypes.string,
+  action: React.PropTypes.string.isRequired
+};
+
+RailsForm.defaultProps = {
+  csrfParam: "authenticity_token",
+  method: "post",
+  acceptCharset: "UTF-8"
+};
